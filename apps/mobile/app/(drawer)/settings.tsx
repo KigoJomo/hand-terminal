@@ -3,6 +3,7 @@ import { DrawerActions, useNavigation } from '@react-navigation/native'
 import {
 	IconMenu3,
 	IconMoon,
+	IconPlus,
 	IconSparkles2,
 	IconSun,
 } from '@tabler/icons-react-native'
@@ -15,12 +16,17 @@ import {
 	ToggleGroup,
 	ToggleGroupItem,
 } from '../../src/components/ui/toggle-group'
-import { useAppTheme, useAppThemeController } from '../../src/theme/use-app-theme'
+import {
+	useAppTheme,
+	useAppThemeController,
+} from '../../src/theme/use-app-theme'
+import { useRouter } from 'expo-router'
 
 export default function SettingsRoute() {
 	const theme = useAppTheme()
 	const { isHydrated, preference, setPreference } = useAppThemeController()
 	const navigation = useNavigation()
+	const router = useRouter()
 
 	return (
 		<Screen>
@@ -39,9 +45,28 @@ export default function SettingsRoute() {
 					<Text variant="title">Settings</Text>
 				</View>
 
+				<Card>
+					<CardContent>
+						<CardRow className="">
+							<View className="gap-0">
+								<Text>Devices</Text>
+								<Text variant="muted">No devices connected yet.</Text>
+							</View>
+
+							<Button
+								variant="secondary"
+								size="icon"
+								onPress={() => router.navigate('/pair')}>
+								<IconPlus color={theme.foreground} size={16} />
+							</Button>
+						</CardRow>
+					</CardContent>
+				</Card>
+
 				<Text variant="xs" className="px-4">
 					User Interface
 				</Text>
+
 				<Card>
 					<CardContent>
 						<CardRow className="border-b border-foreground/10">
